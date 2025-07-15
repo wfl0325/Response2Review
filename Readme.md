@@ -2,11 +2,11 @@
 
 ```mermaid
 graph TD
-    subgraph 用户 (浏览器)
+    subgraph 用户
         A[1. 用户选择文件<br>并点击“提交抽取”] --> B{2. 前端发送POST请求<br>到 /extract};
     end
 
-    subgraph 后端 (Flask App)
+    subgraph 后端
         B --> C{3. /extract 路由<br>接收请求};
         C --> D[4. 获取数据库驱动<br>get_db_driver()];
         D --> E{5. 数据库连接<br>是否成功?};
@@ -23,7 +23,7 @@ graph TD
             M --> N[12. 调用LLM进行<br>信息抽取];
         end
 
-        subgraph AI服务 (大语言模型)
+        subgraph LLM服务
             N -- 发送请求 --> O[13. LLM处理文本<br>并按格式返回三元组];
             O -- 返回结果 --> P[14. 后端接收LLM<br>返回的文本结果];
         end
@@ -41,7 +41,7 @@ graph TD
         U --> V[20. 将处理结果<br>打包成JSON格式];
     end
 
-    subgraph 用户 (浏览器)
+    subgraph 用户
         F --> W[21. 前端显示<br>错误提示];
         V --> X[21. 前端显示<br>成功结果与提示];
     end
